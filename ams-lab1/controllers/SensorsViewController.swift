@@ -10,23 +10,28 @@ import UIKit
 
 class SensorsViewController: UITableViewController {
 
-    var sensors : [Sensor] = SensorsService.generateSensors()
-
+    var sensors : [Sensor]?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        sensors =  SensorsService().getSensors()
+    }
+    
 }
 
 extension SensorsViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sensors.count
+        return sensors!.count
     }
     
     override func tableView(_ tableView: UITableView,
                             cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SensorCell", for: indexPath)
         
-        let sensor = sensors[indexPath.row]
+        let sensor = sensors![indexPath.row]
         cell.textLabel?.text = sensor.name
-        cell.detailTextLabel?.text = sensor.description
+        cell.detailTextLabel?.text = sensor.descr
         return cell
     }
 }

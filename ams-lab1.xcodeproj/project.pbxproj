@@ -10,16 +10,14 @@
 		D227A7B31FDC6ABB0059A9B6 /* SensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B21FDC6ABB0059A9B6 /* SensorsViewController.swift */; };
 		D227A7B51FDC6DC20059A9B6 /* ReadingValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B41FDC6DC20059A9B6 /* ReadingValuesViewController.swift */; };
 		D227A7B71FDC6E3F0059A9B6 /* ReadingValuesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B61FDC6E3F0059A9B6 /* ReadingValuesService.swift */; };
-		D227A7B91FDC6E8B0059A9B6 /* ReadingValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B81FDC6E8B0059A9B6 /* ReadingValue.swift */; };
 		D240DC4A1FDA9E3A00DB41B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D240DC491FDA9E3A00DB41B2 /* AppDelegate.swift */; };
-		D240DC4C1FDA9E3A00DB41B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D240DC4B1FDA9E3A00DB41B2 /* ViewController.swift */; };
 		D240DC4F1FDA9E3A00DB41B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D240DC4D1FDA9E3A00DB41B2 /* Main.storyboard */; };
 		D240DC521FDA9E3A00DB41B2 /* ams_lab1.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D240DC501FDA9E3A00DB41B2 /* ams_lab1.xcdatamodeld */; };
 		D240DC541FDA9E3A00DB41B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D240DC531FDA9E3A00DB41B2 /* Assets.xcassets */; };
 		D240DC571FDA9E3A00DB41B2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D240DC551FDA9E3A00DB41B2 /* LaunchScreen.storyboard */; };
 		D240DC621FDA9E3B00DB41B2 /* ams_lab1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D240DC611FDA9E3B00DB41B2 /* ams_lab1Tests.swift */; };
 		D240DC6D1FDA9E3B00DB41B2 /* ams_lab1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D240DC6C1FDA9E3B00DB41B2 /* ams_lab1UITests.swift */; };
-		D274F54E1FDC4F98003CCF1C /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274F54D1FDC4F98003CCF1C /* Sensor.swift */; };
+		D25BC1981FDC94E400894435 /* UtilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D25BC1971FDC94E400894435 /* UtilityViewController.swift */; };
 		D274F55D1FDC6314003CCF1C /* SensorsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D274F55C1FDC6314003CCF1C /* SensorsService.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,10 +42,8 @@
 		D227A7B21FDC6ABB0059A9B6 /* SensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorsViewController.swift; sourceTree = "<group>"; };
 		D227A7B41FDC6DC20059A9B6 /* ReadingValuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingValuesViewController.swift; sourceTree = "<group>"; };
 		D227A7B61FDC6E3F0059A9B6 /* ReadingValuesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingValuesService.swift; sourceTree = "<group>"; };
-		D227A7B81FDC6E8B0059A9B6 /* ReadingValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingValue.swift; sourceTree = "<group>"; };
 		D240DC461FDA9E3A00DB41B2 /* ams-lab1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ams-lab1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D240DC491FDA9E3A00DB41B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D240DC4B1FDA9E3A00DB41B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D240DC4E1FDA9E3A00DB41B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D240DC511FDA9E3A00DB41B2 /* ams_lab1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ams_lab1.xcdatamodel; sourceTree = "<group>"; };
 		D240DC531FDA9E3A00DB41B2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,7 +55,7 @@
 		D240DC681FDA9E3B00DB41B2 /* ams-lab1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ams-lab1UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D240DC6C1FDA9E3B00DB41B2 /* ams_lab1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ams_lab1UITests.swift; sourceTree = "<group>"; };
 		D240DC6E1FDA9E3B00DB41B2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D274F54D1FDC4F98003CCF1C /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
+		D25BC1971FDC94E400894435 /* UtilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityViewController.swift; sourceTree = "<group>"; };
 		D274F55C1FDC6314003CCF1C /* SensorsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorsService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -112,18 +108,13 @@
 			isa = PBXGroup;
 			children = (
 				D240DC491FDA9E3A00DB41B2 /* AppDelegate.swift */,
-				D240DC4B1FDA9E3A00DB41B2 /* ViewController.swift */,
 				D240DC4D1FDA9E3A00DB41B2 /* Main.storyboard */,
 				D240DC531FDA9E3A00DB41B2 /* Assets.xcassets */,
 				D240DC551FDA9E3A00DB41B2 /* LaunchScreen.storyboard */,
 				D240DC581FDA9E3A00DB41B2 /* Info.plist */,
 				D240DC501FDA9E3A00DB41B2 /* ams_lab1.xcdatamodeld */,
-				D274F54D1FDC4F98003CCF1C /* Sensor.swift */,
-				D274F55C1FDC6314003CCF1C /* SensorsService.swift */,
-				D227A7B21FDC6ABB0059A9B6 /* SensorsViewController.swift */,
-				D227A7B41FDC6DC20059A9B6 /* ReadingValuesViewController.swift */,
-				D227A7B61FDC6E3F0059A9B6 /* ReadingValuesService.swift */,
-				D227A7B81FDC6E8B0059A9B6 /* ReadingValue.swift */,
+				D2A306691FDD573800D50FFA /* controllers */,
+				D2A306681FDD571000D50FFA /* services */,
 			);
 			path = "ams-lab1";
 			sourceTree = "<group>";
@@ -144,6 +135,25 @@
 				D240DC6E1FDA9E3B00DB41B2 /* Info.plist */,
 			);
 			path = "ams-lab1UITests";
+			sourceTree = "<group>";
+		};
+		D2A306681FDD571000D50FFA /* services */ = {
+			isa = PBXGroup;
+			children = (
+				D227A7B61FDC6E3F0059A9B6 /* ReadingValuesService.swift */,
+				D274F55C1FDC6314003CCF1C /* SensorsService.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		D2A306691FDD573800D50FFA /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D25BC1971FDC94E400894435 /* UtilityViewController.swift */,
+				D227A7B41FDC6DC20059A9B6 /* ReadingValuesViewController.swift */,
+				D227A7B21FDC6ABB0059A9B6 /* SensorsViewController.swift */,
+			);
+			path = controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,9 +293,7 @@
 				D274F55D1FDC6314003CCF1C /* SensorsService.swift in Sources */,
 				D227A7B31FDC6ABB0059A9B6 /* SensorsViewController.swift in Sources */,
 				D227A7B71FDC6E3F0059A9B6 /* ReadingValuesService.swift in Sources */,
-				D227A7B91FDC6E8B0059A9B6 /* ReadingValue.swift in Sources */,
-				D240DC4C1FDA9E3A00DB41B2 /* ViewController.swift in Sources */,
-				D274F54E1FDC4F98003CCF1C /* Sensor.swift in Sources */,
+				D25BC1981FDC94E400894435 /* UtilityViewController.swift in Sources */,
 				D240DC521FDA9E3A00DB41B2 /* ams_lab1.xcdatamodeld in Sources */,
 				D240DC4A1FDA9E3A00DB41B2 /* AppDelegate.swift in Sources */,
 				D227A7B51FDC6DC20059A9B6 /* ReadingValuesViewController.swift in Sources */,

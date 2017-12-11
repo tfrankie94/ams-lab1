@@ -10,14 +10,25 @@ import UIKit
 
 class ReadingValuesViewController: UITableViewController {
 
-    var readingValues : [ReadingValue] = ReadingValuesService.generateReadingValues()
+    var readingValues : [ReadingValue]?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+//        readingValues = ReadingValuesService().getReadingValues()
+    }
+    
+    override func viewWillAppear(_ animated: Bool){
+        super.viewWillAppear(animated)
+        readingValues = ReadingValuesService().getReadingValues()
+        self.tableView.reloadData()
+    }
     
 }
 
 extension ReadingValuesViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return readingValues.count
+        return readingValues!.count
     }
     
     override func tableView(_ tableView: UITableView,
@@ -27,8 +38,8 @@ extension ReadingValuesViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
         
-        let readingValue = readingValues[indexPath.row]
-        cell.textLabel?.text = "\(readingValue.sensor.name) \(dateFormatter.string(from: readingValue.timestamp))"
+        let readingValue = readingValues![indexPath.row]
+        cell.textLabel?.text = "\(readingValue.sensor!.name!) - \(dateFormatter.string(from: readingValue.timestamp!))"
         cell.detailTextLabel?.text = "Value: \(readingValue.value)"
         return cell
     }
