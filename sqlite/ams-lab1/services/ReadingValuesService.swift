@@ -83,13 +83,8 @@ class ReadingValuesService {
     }
     
     func deleteAll(){
-//        let deleteAllRequest = NSBatchDeleteRequest(fetchRequest: NSFetchRequest<NSFetchRequestResult>(entityName: "ReadingValue"))
-//        do {
-//            try managedContext!.execute(deleteAllRequest)
-//        }
-//        catch {
-//            print("ERROR DELETING READING VALUES")
-//        }
+        let deleteSQL = "DELETE FROM readingValues;"
+        sqlite3_exec(db, deleteSQL, nil, nil, nil)
     }
     
     func getLargestReadingValue() -> String{
