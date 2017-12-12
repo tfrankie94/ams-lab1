@@ -122,56 +122,42 @@ class ReadingValuesService {
         return response
     }
     func getAvgReadingValue() -> String{
-//        let keypathExp1 = NSExpression(forKeyPath: "value")
-//        let expression = NSExpression(forFunction: "average:", arguments: [keypathExp1])
-//        let desc = NSExpressionDescription()
-//        desc.expression = expression
-//        desc.name = "result"
-//        desc.expressionResultType = .floatAttributeType
-//
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReadingValue")
-//        fetchRequest.returnsObjectsAsFaults = false
-//        fetchRequest.propertiesToFetch = [desc]
-//        fetchRequest.resultType = .dictionaryResultType
-//
-//        do {
-//            let startTime = NSDate()
-//            let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
-//            let finishTime = NSDate()
-//            return "Average value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))"
-//        } catch {
-//            return "ERROR FETCHING READING VALUE"
-//        }
-        return "implementing"
+        var response: String = "Empty readingValues.";
+        
+        var stmt: OpaquePointer? = nil
+        let selectSQL = "SELECT AVG(value) FROM readingValues;"
+        let startTime = NSDate()
+        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let finishTime = NSDate()
+            if(sqlite3_column_text(stmt, 0) != nil){
+                let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
+                response =  "Average value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            }
+        }
+        sqlite3_finalize(stmt)
+        return response
     }
     func getCountAndAvgValueForEachSensor() -> String{
-//        let keypathExp1 = NSExpression(forKeyPath: "value")
-//        let expression = NSExpression(forFunction: "average:", arguments: [keypathExp1])
-//        let desc = NSExpressionDescription()
-//        desc.expression = expression
-//        desc.name = "result"
-//        desc.expressionResultType = .floatAttributeType
-//
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReadingValue")
-//        fetchRequest.propertiesToGroupBy = ["sensor"]
-//        fetchRequest.propertiesToFetch = ["sensor", desc]
-//
-//        fetchRequest.resultType = .dictionaryResultType
-//
-//        do {
-//            let startTime = NSDate()
-//            let groupedAvg = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
-//            let finishTime = NSDate()
-//            var responseText = ""
-//            for sensorAvg in groupedAvg{
-//                let sensor : Sensor = managedContext!.object(with: sensorAvg["sensor"]! as! NSManagedObjectID) as! Sensor
-//                responseText = "\(responseText)\n\(sensor.name!): \(sensorAvg["result"]!)"
-//            }
-//            return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))\(responseText)"
-//        } catch {
-//            return "ERROR FETCHING READING VALUE"
-//        }
-        return "implementing"
+        var response: String = "";
+
+        var stmt: OpaquePointer? = nil
+        let selectSQL = "SELECT sensor, AVG(value) FROM readingValues GROUP BY sensor;"
+        let startTime = NSDate()
+        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let sensor = String(cString: sqlite3_column_text(stmt, 0))
+            let avg = Float(String(cString: sqlite3_column_text(stmt, 1)))
+            response = "\(response)\n\(sensor): \(avg!)"
+        }
+        let finishTime = NSDate()
+        sqlite3_finalize(stmt)
+        
+        if (response.isEmpty){
+            return "Empty readingValues.";
+        } else {
+            return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))\(response)";
+        }
     }
     
 }
