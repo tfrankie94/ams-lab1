@@ -161,20 +161,20 @@
                                     <action selector="findSmallestRecordedTimestamp:" destination="eyh-YO-1rS" eventType="touchUpInside" id="4ne-Wk-CzO"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVb-xX-JAU">
-                                <rect key="frame" x="26" y="384" width="321" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Calc readings count, avg value for each sensor"/>
-                                <connections>
-                                    <action selector="calculateReadingsCountAndAvgForEachSensor:" destination="eyh-YO-1rS" eventType="touchUpInside" id="bXR-CB-xJy"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sja-0d-Dcf">
                                 <rect key="frame" x="29" y="318" width="318" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Calculate average reading value for all sensors"/>
                                 <connections>
                                     <action selector="calculateAvgReadingValue:" destination="eyh-YO-1rS" eventType="touchUpInside" id="fha-y5-lB9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVb-xX-JAU">
+                                <rect key="frame" x="27" y="368" width="321" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Calc readings count, avg value for each sensor"/>
+                                <connections>
+                                    <action selector="calculateReadingsCountAndAvgForEachSensor:" destination="eyh-YO-1rS" eventType="touchUpInside" id="bXR-CB-xJy"/>
                                 </connections>
                             </button>
                         </subviews>

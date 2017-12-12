@@ -61,25 +61,4 @@ class SensorsService {
         return sensors[0]
     }
     
-    /*
-     let fr = NSFetchRequest<NSFetchRequestResult>  (entityName: "Person")
-     fr.resultType = .dictionaryResultType
-     let ed = NSExpressionDescription()
-     ed.name = "MinimumAge"
-     ed.expression = NSExpression(format: "@min.age")
-     ed.expressionResultType = .integer16AttributeType
-     fr.propertiesToFetch = [ed]
-     try? result = moc.fetch(fr)
-     */
-    
-    //update:
-//    let someMafia = mafias.first
-//    someMafia?.setValue("Cosa Nostra", forKey: "name")
-//    try? moc?.save()
-    
-    //delete:
-//    let someMafia = mafias.first
-//    moc?.delete(someMafia!)
-//    try? moc?.save()
-    
 }

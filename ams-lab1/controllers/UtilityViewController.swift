@@ -21,8 +21,8 @@ class UtilityViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
-        addRandomReadings(count: Int(readingCountTextField.text!)!);
-        utilityTextArea.text = "\(utilityTextArea.text!)\nAdded \(readingCountTextField.text!) readings."
+        let response = readingValuesService!.addRandomReadingValues(count: Int(readingCountTextField.text!)!);
+        utilityTextArea.text = "\(utilityTextArea.text!)\n\(response)"
     }
     
     @IBAction func deleteAllReadings(_ sender: UIButton) {
@@ -32,25 +32,20 @@ class UtilityViewController: UIViewController {
     
     
     @IBAction func findLargestRecordedTimestamp(_ sender: UIButton) {
-        utilityTextArea.text = "\(utilityTextArea.text!)\n findLargestRecordedTimestamp."
+        let text = readingValuesService!.getLargestReadingValue()
+        utilityTextArea.text = "\(utilityTextArea.text!)\n\(text)"
     }
     @IBAction func findSmallestRecordedTimestamp(_ sender: UIButton) {
-        utilityTextArea.text = "\(utilityTextArea.text!)\n findSmallestRecordedTimestamp."
+        let text = readingValuesService!.getSmallestReadingValue()
+        utilityTextArea.text = "\(utilityTextArea.text!)\n\(text)"
     }
     @IBAction func calculateAvgReadingValue(_ sender: UIButton) {
-        utilityTextArea.text = "\(utilityTextArea.text!)\n calculateAvgReadingValue."
+        let text = readingValuesService!.getAvgReadingValue()
+        utilityTextArea.text = "\(utilityTextArea.text!)\n\(text)"
     }
     @IBAction func calculateReadingsCountAndAvgForEachSensor(_ sender: UIButton) {
-        utilityTextArea.text = "\(utilityTextArea.text!)\n calculateReadingsCountAndAvgForEachSensor."
-    }
-    
-    func addRandomReadings(count: Int){
-        for _ in 1...count{
-            let timestamp : Date = Date(timeIntervalSince1970: Date().timeIntervalSince1970 - Double.random(min: 0.00, max: 31556926))
-            let value: Float = Float.random(min: 0, max: 100)
-            let sensorId = Int.random(min: 1, max: 20)
-            readingValuesService!.addReadingValue(timestamp: timestamp, sensorId: sensorId, value: value)
-        }
+        let text = readingValuesService!.getCountAndAvgValueForEachSensor()
+        utilityTextArea.text = "\(utilityTextArea.text!)\n\(text)"
     }
     
     override func viewDidLoad() {
