@@ -88,50 +88,38 @@ class ReadingValuesService {
     }
     
     func getLargestReadingValue() -> String{
-//        let keypathExp1 = NSExpression(forKeyPath: "value")
-//        let expression = NSExpression(forFunction: "max:", arguments: [keypathExp1])
-//        let desc = NSExpressionDescription()
-//        desc.expression = expression
-//        desc.name = "result"
-//        desc.expressionResultType = .floatAttributeType
-//
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReadingValue")
-//        fetchRequest.returnsObjectsAsFaults = false
-//        fetchRequest.propertiesToFetch = [desc]
-//        fetchRequest.resultType = .dictionaryResultType
-//
-//        do {
-//            let startTime = NSDate()
-//            let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
-//            let finishTime = NSDate()
-//            return "Largest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
-//        } catch {
-//            return "ERROR FETCHING READING VALUE"
-//        }
-        return "implementing"
+        var response: String = "Empty readingValues.";
+        
+        var stmt: OpaquePointer? = nil
+        let selectSQL = "SELECT MAX(value) FROM readingValues;"
+        let startTime = NSDate()
+        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let finishTime = NSDate()
+            if(sqlite3_column_text(stmt, 0) != nil){
+                let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
+                response =  "Largest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            }
+        }
+        sqlite3_finalize(stmt)
+        return response
     }
     func getSmallestReadingValue() -> String{
-//        let keypathExp1 = NSExpression(forKeyPath: "value")
-//        let expression = NSExpression(forFunction: "min:", arguments: [keypathExp1])
-//        let desc = NSExpressionDescription()
-//        desc.expression = expression
-//        desc.name = "result"
-//        desc.expressionResultType = .floatAttributeType
-//
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReadingValue")
-//        fetchRequest.returnsObjectsAsFaults = false
-//        fetchRequest.propertiesToFetch = [desc]
-//        fetchRequest.resultType = .dictionaryResultType
-//
-//        do {
-//            let startTime = NSDate()
-//            let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
-//            let finishTime = NSDate()
-//            return "Smallest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
-//        } catch {
-//            return "ERROR FETCHING READING VALUE"
-//        }
-        return "implementing"
+        var response: String = "Empty readingValues.";
+        
+        var stmt: OpaquePointer? = nil
+        let selectSQL = "SELECT MIN(value) FROM readingValues;"
+        let startTime = NSDate()
+        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let finishTime = NSDate()
+            if(sqlite3_column_text(stmt, 0) != nil){
+                let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
+                response =  "Smallest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            }
+        }
+        sqlite3_finalize(stmt)
+        return response
     }
     func getAvgReadingValue() -> String{
 //        let keypathExp1 = NSExpression(forKeyPath: "value")
