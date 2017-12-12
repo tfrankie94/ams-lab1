@@ -14,7 +14,6 @@ class ReadingValuesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        readingValues = ReadingValuesService().getReadingValues()
     }
     
     override func viewWillAppear(_ animated: Bool){

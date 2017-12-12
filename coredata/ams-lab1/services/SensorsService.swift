@@ -19,12 +19,6 @@ class SensorsService {
         managedContext = appDelegate.persistentContainer.viewContext
     }
     
-    //use NSFetchedResultsController later
-//    init(fetchRequest: NSFetchRequest<ResultType>,
-//         managedObjectContext context: NSManagedObjectContext,
-//         sectionNameKeyPath: String?,
-//         cacheName name: String?)
-    
     func addSensor(name: String, description: String) {
         let entity = NSEntityDescription.entity(forEntityName: "Sensor", in: managedContext!)
         let sensor = NSManagedObject(entity: entity!, insertInto: managedContext)

@@ -83,7 +83,11 @@ class ReadingValuesService {
             let startTime = NSDate()
             let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
-            return "Largest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            if(value[0]["result"] != nil){
+                return "Largest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            } else {
+                return "Empty readingValues."
+            }
         } catch {
             return "ERROR FETCHING READING VALUE"
         }
@@ -105,10 +109,16 @@ class ReadingValuesService {
             let startTime = NSDate()
             let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
-            return "Smallest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            if(value[0]["result"] != nil){
+                return "Smallest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+            } else {
+                return "Empty readingValues."
+            }
         } catch {
             return "ERROR FETCHING READING VALUE"
         }
+        
+        
     }
     func getAvgReadingValue() -> String{
         let keypathExp1 = NSExpression(forKeyPath: "value")
@@ -127,7 +137,11 @@ class ReadingValuesService {
             let startTime = NSDate()
             let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
-            return "Average value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))"
+            if(value[0]["result"] != nil){
+                return "Average value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))"
+            } else {
+                return "Empty readingValues."
+            }
         } catch {
             return "ERROR FETCHING READING VALUE"
         }
@@ -141,7 +155,6 @@ class ReadingValuesService {
         desc.expressionResultType = .floatAttributeType
         
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "ReadingValue")
-//        fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.propertiesToGroupBy = ["sensor"]
         fetchRequest.propertiesToFetch = ["sensor", desc]
         
@@ -152,11 +165,15 @@ class ReadingValuesService {
             let groupedAvg = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
             var responseText = ""
-            for sensorAvg in groupedAvg{
-                let sensor : Sensor = managedContext!.object(with: sensorAvg["sensor"]! as! NSManagedObjectID) as! Sensor
-                responseText = "\(responseText)\n\(sensor.name!): \(sensorAvg["result"]!)"
+            if (!groupedAvg.isEmpty){
+                for sensorAvg in groupedAvg{
+                    let sensor : Sensor = managedContext!.object(with: sensorAvg["sensor"]! as! NSManagedObjectID) as! Sensor
+                    responseText = "\(responseText)\n\(sensor.name!): \(sensorAvg["result"]!)"
+                }
+                return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))\(responseText)"
+            } else {
+                return "Empty readingValues."
             }
-            return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))\(responseText)"
         } catch {
             return "ERROR FETCHING READING VALUE"
         }
