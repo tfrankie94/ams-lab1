@@ -14,7 +14,6 @@ class ReadingValuesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        readingValues = ReadingValuesService().getReadingValues()
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -39,7 +38,7 @@ extension ReadingValuesViewController {
         dateFormatter.dateFormat = "dd.MM.yyyy hh:mm:ss"
         
         let readingValue = readingValues![indexPath.row]
-        cell.textLabel?.text = "\(readingValue.sensor!.name!) - \(dateFormatter.string(from: readingValue.timestamp!))"
+        cell.textLabel?.text = "\(readingValue.sensor) - \(dateFormatter.string(from: readingValue.timestamp))"
         cell.detailTextLabel?.text = "Value: \(readingValue.value)"
         return cell
     }

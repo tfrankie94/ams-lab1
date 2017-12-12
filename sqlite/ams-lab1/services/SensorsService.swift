@@ -12,53 +12,57 @@ import CoreData
 
 class SensorsService {
     
-    var managedContext: NSManagedObjectContext?
+    var db: OpaquePointer? = nil
 
     init() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        managedContext = appDelegate.persistentContainer.viewContext
+        let docDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let dbFilePath = NSURL(fileURLWithPath: docDir).appendingPathComponent("lab1.db")?.path
+        
+        if sqlite3_open(dbFilePath, &db) != SQLITE_OK {
+            print("ERROR CONNECTING TO DB")
+        } else {
+            let createSQL = "CREATE TABLE IF NOT EXISTS sensors (name VARCHAR(50) PRIMARY KEY, descr VARCHAR(250));"
+            sqlite3_exec(db, createSQL, nil, nil, nil)
+        }
     }
     
-    //use NSFetchedResultsController later
-//    init(fetchRequest: NSFetchRequest<ResultType>,
-//         managedObjectContext context: NSManagedObjectContext,
-//         sectionNameKeyPath: String?,
-//         cacheName name: String?)
-    
     func addSensor(name: String, description: String) {
-        let entity = NSEntityDescription.entity(forEntityName: "Sensor", in: managedContext!)
-        let sensor = NSManagedObject(entity: entity!, insertInto: managedContext)
-        sensor.setValue(name, forKey: "name")
-        sensor.setValue(description, forKey: "descr")
-        try? managedContext?.save()
+        let insertSQL = "INSERT INTO sensors (name, descr) VALUES ('\(name)', '\(description)');"
+        sqlite3_exec(db, insertSQL, nil, nil, nil)
     }
     
     func getSensors() -> [Sensor] {
-        let fetchRequest = NSFetchRequest<Sensor>(entityName: "Sensor")
+        var sensors: [Sensor] = []
         
-        let sensors : [Sensor]
-        do {
-            try sensors = managedContext!.fetch(fetchRequest)
-        } catch {
-            print("ERROR FETCHING SENSORS")
-            return []
+        var stmt: OpaquePointer? = nil
+        let selectSQL = "SELECT name, descr FROM sensors;"
+        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let name = String(cString: sqlite3_column_text(stmt, 0))
+            let descr = String(cString: sqlite3_column_text(stmt, 1))
+
+            sensors.append(Sensor(name: name, descr: descr))
         }
+        sqlite3_finalize(stmt)
+        
         return sensors
     }
     
-    func getSensorById(sensorId: Int) -> Sensor?{
-        let name = "S\(sensorId)"
-        let fetchRequest = NSFetchRequest<Sensor>(entityName: "Sensor")
-        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
-
-        let sensors : [Sensor]
-        do {
-            sensors = try managedContext!.fetch(fetchRequest)
-        } catch {
-            print("ERROR FETCHING SENSOR BY ID")
-            return nil
+    func getSensorByName(sensorName: String) -> Sensor?{
+        var sensor : Sensor?
+        
+        var stmt: OpaquePointer? = nil
+        let selectSQL = "SELECT name, descr FROM sensors WHERE name='\(sensorName)';"
+        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
+        while sqlite3_step(stmt) == SQLITE_ROW {
+            let name = String(cString: sqlite3_column_text(stmt, 0))
+            let descr = String(cString: sqlite3_column_text(stmt, 1))
+            
+            sensor = Sensor(name: name, descr: descr)
         }
-        return sensors[0]
+        sqlite3_finalize(stmt)
+        
+        return sensor
     }
     
 }

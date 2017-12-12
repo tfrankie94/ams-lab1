@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D2000B131FDFF2410050478A /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D2000B121FDFF2410050478A /* libsqlite3.tbd */; };
+		D2000B161FDFFCE60050478A /* Sensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000B151FDFFCE60050478A /* Sensor.swift */; };
+		D2000B181FDFFCF40050478A /* ReadingValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2000B171FDFFCF40050478A /* ReadingValue.swift */; };
 		D227A7B31FDC6ABB0059A9B6 /* SensorsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B21FDC6ABB0059A9B6 /* SensorsViewController.swift */; };
 		D227A7B51FDC6DC20059A9B6 /* ReadingValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B41FDC6DC20059A9B6 /* ReadingValuesViewController.swift */; };
 		D227A7B71FDC6E3F0059A9B6 /* ReadingValuesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D227A7B61FDC6E3F0059A9B6 /* ReadingValuesService.swift */; };
@@ -39,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D2000B121FDFF2410050478A /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		D2000B151FDFFCE60050478A /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
+		D2000B171FDFFCF40050478A /* ReadingValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingValue.swift; sourceTree = "<group>"; };
 		D227A7B21FDC6ABB0059A9B6 /* SensorsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorsViewController.swift; sourceTree = "<group>"; };
 		D227A7B41FDC6DC20059A9B6 /* ReadingValuesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingValuesViewController.swift; sourceTree = "<group>"; };
 		D227A7B61FDC6E3F0059A9B6 /* ReadingValuesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingValuesService.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2000B131FDFF2410050478A /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +91,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D2000B111FDFF2410050478A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D2000B121FDFF2410050478A /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D2000B141FDFFCD20050478A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D2000B151FDFFCE60050478A /* Sensor.swift */,
+				D2000B171FDFFCF40050478A /* ReadingValue.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		D240DC3D1FDA9E3A00DB41B2 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +115,7 @@
 				D240DC601FDA9E3B00DB41B2 /* ams-lab1Tests */,
 				D240DC6B1FDA9E3B00DB41B2 /* ams-lab1UITests */,
 				D240DC471FDA9E3A00DB41B2 /* Products */,
+				D2000B111FDFF2410050478A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +138,7 @@
 				D240DC551FDA9E3A00DB41B2 /* LaunchScreen.storyboard */,
 				D240DC581FDA9E3A00DB41B2 /* Info.plist */,
 				D240DC501FDA9E3A00DB41B2 /* ams_lab1.xcdatamodeld */,
+				D2000B141FDFFCD20050478A /* model */,
 				D2A306691FDD573800D50FFA /* controllers */,
 				D2A306681FDD571000D50FFA /* services */,
 			);
@@ -291,7 +317,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D274F55D1FDC6314003CCF1C /* SensorsService.swift in Sources */,
+				D2000B161FDFFCE60050478A /* Sensor.swift in Sources */,
 				D227A7B31FDC6ABB0059A9B6 /* SensorsViewController.swift in Sources */,
+				D2000B181FDFFCF40050478A /* ReadingValue.swift in Sources */,
 				D227A7B71FDC6E3F0059A9B6 /* ReadingValuesService.swift in Sources */,
 				D25BC1981FDC94E400894435 /* UtilityViewController.swift in Sources */,
 				D240DC521FDA9E3A00DB41B2 /* ams_lab1.xcdatamodeld in Sources */,
@@ -467,6 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agh.edu.pl.lab1-sqlite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -481,6 +510,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agh.edu.pl.lab1-sqlite";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SWIFT_MODULE_NAME)-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
