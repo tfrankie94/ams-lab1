@@ -31,12 +31,8 @@ class UtilityViewController: UIViewController {
     }
     
     
-    @IBAction func findLargestRecordedTimestamp(_ sender: UIButton) {
-        let text = readingValuesService!.getLargestReadingValue()
-        utilityTextArea.text = "\(utilityTextArea.text!)\n\(text)"
-    }
-    @IBAction func findSmallestRecordedTimestamp(_ sender: UIButton) {
-        let text = readingValuesService!.getSmallestReadingValue()
+    @IBAction func findLargestAndSmallestValue(_ sender: UIButton) {
+        let text = readingValuesService!.getLargestAndSmallestReadingValue()
         utilityTextArea.text = "\(utilityTextArea.text!)\n\(text)"
     }
     @IBAction func calculateAvgReadingValue(_ sender: UIButton) {

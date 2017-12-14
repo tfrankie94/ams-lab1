@@ -57,7 +57,7 @@ class ReadingValuesService {
         let insertSQL = "INSERT INTO readingValues (timestamp, value, sensor) VALUES \(values.joined(separator: ", "));"
         sqlite3_exec(db, insertSQL, nil, nil, nil)
         let finishTime = NSDate()
-        print("SQL: \(insertSQL)")
+//        print("SQL: \(insertSQL)")
         print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s")
         return "Added \(count) readings in \(finishTime.timeIntervalSince(startTime as Date))s.";
 
@@ -99,39 +99,21 @@ class ReadingValuesService {
         sqlite3_exec(db, deleteSQL, nil, nil, nil)
     }
     
-    func getLargestReadingValue() -> String{
+    func getLargestAndSmallestReadingValue() -> String{
         var response: String = "Empty readingValues.";
         
         var stmt: OpaquePointer? = nil
-        let selectSQL = "SELECT MAX(value) FROM readingValues;"
+        let selectSQL = "SELECT MAX(value), MIN(value) FROM readingValues;"
         print("SQL: \(selectSQL)")
         let startTime = NSDate()
         sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
         while sqlite3_step(stmt) == SQLITE_ROW {
             let finishTime = NSDate()
             if(sqlite3_column_text(stmt, 0) != nil){
-                let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
-                print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, result: \(value!)")
-                response =  "Largest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
-            }
-        }
-        sqlite3_finalize(stmt)
-        return response
-    }
-    func getSmallestReadingValue() -> String{
-        var response: String = "Empty readingValues.";
-        
-        var stmt: OpaquePointer? = nil
-        let selectSQL = "SELECT MIN(value) FROM readingValues;"
-        print("SQL: \(selectSQL)")
-        let startTime = NSDate()
-        sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
-        while sqlite3_step(stmt) == SQLITE_ROW {
-            let finishTime = NSDate()
-            if(sqlite3_column_text(stmt, 0) != nil){
-                let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
-                print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, result: \(value!)")
-                response =  "Smallest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
+                let max : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
+                let min : Float? = Float(String(cString: sqlite3_column_text(stmt, 1)))
+                print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, largest: \(max!), smallest: \(min!)")
+                response =  "Largest value \(max!), smallest value \(min!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
             }
         }
         sqlite3_finalize(stmt)
