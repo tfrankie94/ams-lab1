@@ -11,14 +11,16 @@ import UIKit
 class ReadingValuesViewController: UITableViewController {
 
     var readingValues : [ReadingValue]?
+    var readingValuesService: ReadingValuesService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        readingValuesService = ReadingValuesService()
     }
     
     override func viewWillAppear(_ animated: Bool){
         super.viewWillAppear(animated)
-        readingValues = ReadingValuesService().getReadingValues()
+        readingValues = readingValuesService!.getReadingValues()
         self.tableView.reloadData()
     }
     

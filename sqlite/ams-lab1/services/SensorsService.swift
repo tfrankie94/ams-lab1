@@ -23,6 +23,7 @@ class SensorsService {
         } else {
             let createSQL = "CREATE TABLE IF NOT EXISTS sensors (name VARCHAR(50) PRIMARY KEY, descr VARCHAR(250));"
             sqlite3_exec(db, createSQL, nil, nil, nil)
+            print("SQL: \(createSQL)")
         }
     }
     

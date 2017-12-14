@@ -21,6 +21,8 @@ class ReadingValuesService {
         let docDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let dbFilePath = NSURL(fileURLWithPath: docDir).appendingPathComponent("lab1.db")?.path
         
+        print("DB path: \(dbFilePath!)")
+        
         if sqlite3_open(dbFilePath, &db) != SQLITE_OK {
             print("ERROR CONNECTING TO DB")
         } else {
@@ -33,24 +35,32 @@ class ReadingValuesService {
                             FOREIGN KEY (sensor) REFERENCES sensors(name));
                             """
             sqlite3_exec(db, createSQL, nil, nil, nil)
+            print("SQL: \(createSQL)")
+            
         }
     }
     
     func addRandomReadingValues(count: Int) -> String{
-        let startTime = NSDate()
+        var values : [String] = []
         for _ in 1...count{
             let timestamp : Date = Date(timeIntervalSince1970: Date().timeIntervalSince1970 - Double.random(min: 0.00, max: 31556926))
             let value: Float = Float.random(min: 0, max: 100)
             let sensorName = "S\(Int.random(min: 1, max: 20))"
-            addReadingValue(timestamp: timestamp, sensorName: sensorName, value: value)
+            
+            values.append("('\(timestamp)', '\(value)', '\(sensorName)')")
         }
-        let finishTime = NSDate()
-        return "Added \(count) readings in \(finishTime.timeIntervalSince(startTime as Date)).";
+        return addReadingValues(count: count, values: values)
     }
     
-    func addReadingValue(timestamp: Date, sensorName: String, value: Float) {
-        let insertSQL = "INSERT INTO readingValues (timestamp, value, sensor) VALUES ('\(timestamp)', '\(value)', '\(sensorName)');"
+    func addReadingValues(count: Int, values: [String]) -> String {
+        let startTime = NSDate()
+        let insertSQL = "INSERT INTO readingValues (timestamp, value, sensor) VALUES \(values.joined(separator: ", "));"
         sqlite3_exec(db, insertSQL, nil, nil, nil)
+        let finishTime = NSDate()
+        print("SQL: \(insertSQL)")
+        print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s")
+        return "Added \(count) readings in \(finishTime.timeIntervalSince(startTime as Date))s.";
+
     }
     
     func getReadingValues() -> [ReadingValue] {
@@ -58,6 +68,7 @@ class ReadingValuesService {
         
         var stmt: OpaquePointer? = nil
         let selectSQL = "SELECT timestamp, value, sensor FROM readingValues;"
+        print("SQL: \(selectSQL)")
         sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
         while sqlite3_step(stmt) == SQLITE_ROW {
             let timestamp = String(cString: sqlite3_column_text(stmt, 0))
@@ -84,6 +95,7 @@ class ReadingValuesService {
     
     func deleteAll(){
         let deleteSQL = "DELETE FROM readingValues;"
+        print("SQL: \(deleteSQL)")
         sqlite3_exec(db, deleteSQL, nil, nil, nil)
     }
     
@@ -92,13 +104,15 @@ class ReadingValuesService {
         
         var stmt: OpaquePointer? = nil
         let selectSQL = "SELECT MAX(value) FROM readingValues;"
+        print("SQL: \(selectSQL)")
         let startTime = NSDate()
         sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
         while sqlite3_step(stmt) == SQLITE_ROW {
             let finishTime = NSDate()
             if(sqlite3_column_text(stmt, 0) != nil){
                 let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
-                response =  "Largest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+                print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, result: \(value!)")
+                response =  "Largest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
             }
         }
         sqlite3_finalize(stmt)
@@ -109,13 +123,15 @@ class ReadingValuesService {
         
         var stmt: OpaquePointer? = nil
         let selectSQL = "SELECT MIN(value) FROM readingValues;"
+        print("SQL: \(selectSQL)")
         let startTime = NSDate()
         sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
         while sqlite3_step(stmt) == SQLITE_ROW {
             let finishTime = NSDate()
             if(sqlite3_column_text(stmt, 0) != nil){
                 let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
-                response =  "Smallest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+                print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, result: \(value!)")
+                response =  "Smallest value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
             }
         }
         sqlite3_finalize(stmt)
@@ -126,13 +142,15 @@ class ReadingValuesService {
         
         var stmt: OpaquePointer? = nil
         let selectSQL = "SELECT AVG(value) FROM readingValues;"
+        print("SQL: \(selectSQL)")
         let startTime = NSDate()
         sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
         while sqlite3_step(stmt) == SQLITE_ROW {
             let finishTime = NSDate()
             if(sqlite3_column_text(stmt, 0) != nil){
                 let value : Float? = Float(String(cString: sqlite3_column_text(stmt, 0)))
-                response =  "Average value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+                print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, result: \(value!)")
+                response =  "Average value \(value!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
             }
         }
         sqlite3_finalize(stmt)
@@ -142,13 +160,15 @@ class ReadingValuesService {
         var response: String = "";
 
         var stmt: OpaquePointer? = nil
-        let selectSQL = "SELECT sensor, AVG(value) FROM readingValues GROUP BY sensor;"
+        let selectSQL = "SELECT sensor, count(sensor), AVG(value) FROM readingValues GROUP BY sensor;"
+        print("SQL: \(selectSQL)")
         let startTime = NSDate()
         sqlite3_prepare_v2(db, selectSQL, -1, &stmt, nil)
         while sqlite3_step(stmt) == SQLITE_ROW {
             let sensor = String(cString: sqlite3_column_text(stmt, 0))
-            let avg = Float(String(cString: sqlite3_column_text(stmt, 1)))
-            response = "\(response)\n\(sensor): \(avg!)"
+            let count =  sqlite3_column_int(stmt, 1)
+            let avg = Float(String(cString: sqlite3_column_text(stmt, 2)))
+            response = "\(response)\n\(sensor): count: \(count), avg: \(avg!)"
         }
         let finishTime = NSDate()
         sqlite3_finalize(stmt)
@@ -156,7 +176,8 @@ class ReadingValuesService {
         if (response.isEmpty){
             return "Empty readingValues.";
         } else {
-            return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))\(response)";
+            print("SQL duration: \(finishTime.timeIntervalSince(startTime as Date))s, result: \(response)")
+            return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))s\(response)";
         }
     }
     

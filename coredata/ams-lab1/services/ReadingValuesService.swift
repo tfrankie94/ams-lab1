@@ -30,7 +30,7 @@ class ReadingValuesService {
             addReadingValue(timestamp: timestamp, sensorId: sensorId, value: value)
         }
         let finishTime = NSDate()
-        return "Added \(count) readings in \(finishTime.timeIntervalSince(startTime as Date)).";
+        return "Added \(count) readings in \(finishTime.timeIntervalSince(startTime as Date))s.";
     }
     
     func addReadingValue(timestamp: Date, sensorId: Int, value: Float) {
@@ -84,7 +84,7 @@ class ReadingValuesService {
             let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
             if(value[0]["result"] != nil){
-                return "Largest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+                return "Largest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
             } else {
                 return "Empty readingValues."
             }
@@ -110,7 +110,7 @@ class ReadingValuesService {
             let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
             if(value[0]["result"] != nil){
-                return "Smallest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date)).";
+                return "Smallest value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))s.";
             } else {
                 return "Empty readingValues."
             }
@@ -138,7 +138,7 @@ class ReadingValuesService {
             let value = try managedContext!.fetch(fetchRequest) as! [NSDictionary]
             let finishTime = NSDate()
             if(value[0]["result"] != nil){
-                return "Average value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))"
+                return "Average value \(value[0]["result"]!) found in \(finishTime.timeIntervalSince(startTime as Date))s."
             } else {
                 return "Empty readingValues."
             }
@@ -170,7 +170,7 @@ class ReadingValuesService {
                     let sensor : Sensor = managedContext!.object(with: sensorAvg["sensor"]! as! NSManagedObjectID) as! Sensor
                     responseText = "\(responseText)\n\(sensor.name!): \(sensorAvg["result"]!)"
                 }
-                return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))\(responseText)"
+                return "Average values found in \(finishTime.timeIntervalSince(startTime as Date))s\(responseText)"
             } else {
                 return "Empty readingValues."
             }

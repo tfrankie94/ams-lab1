@@ -11,10 +11,12 @@ import UIKit
 class SensorsViewController: UITableViewController {
 
     var sensors : [Sensor]?
+    var sensorsService: SensorsService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        sensors =  SensorsService().getSensors()
+        sensorsService = SensorsService()
+        sensors = sensorsService!.getSensors()
     }
     
 }
